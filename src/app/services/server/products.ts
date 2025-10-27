@@ -15,5 +15,10 @@ export async function fetchProducts(): Promise<Product[]> {
     const collection : Collection<Product> = db.collection<Product>("products");
 
     const products = await collection.find({}).toArray();
-    return products;
+    const formatted = products.map(p => ({
+        ...p,
+        _id: p._id.toString(),
+    }));
+
+    return formatted;
 }
